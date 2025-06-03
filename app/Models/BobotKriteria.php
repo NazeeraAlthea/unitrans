@@ -10,6 +10,12 @@ class BobotKriteria extends Model
     protected $table = 'bobot_kriteria';
     protected $primaryKey = 'id_bobot';
     public $timestamps = false;
+    protected $fillable = [
+        'id_perhitungan',
+        'id_kriteria',
+        'bobot'
+    ];
+
 
     public function kriteria()
     {

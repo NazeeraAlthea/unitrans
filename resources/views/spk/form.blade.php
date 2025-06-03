@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <title>Lokasi dengan Google Places</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 
@@ -12,7 +13,7 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script>
 
-    <style>
+    {{-- <style>
         /* Contoh untuk orange, ganti sesuai warna tiap transportasi */
         .shadow-inner-top-strong-orange {
             box-shadow: inset 0 8px 32px 0 #FFA726cc !important;
@@ -55,7 +56,7 @@
         .border-purple-strong {
             border-color: #BA68C8 !important;
         }
-    </style>
+    </style> --}}
 
 
 </head>

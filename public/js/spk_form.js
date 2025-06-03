@@ -28,6 +28,7 @@ const warnaShadow = {
     // dst...
 };
 
+//value alternatif
 function renderSlider(namaAlt, aspek, nilai) {
     let slug = namaAlt.replace(/\s/g, "");
     let html = "";
@@ -191,8 +192,8 @@ document.addEventListener("DOMContentLoaded", function () {
               ...item,
               harga: item.harga ?? 0, // inisialisasi, bisa disesuaikan jika dari DB
               waktu: item.waktu ?? null,
-              kenyamanan: item.kenyamanan ?? 3,
               keamanan: item.keamanan ?? 3,
+              kenyamanan: item.kenyamanan ?? 3,
               aksesbilitas: item.aksesbilitas ?? 3
           }));
           renderTransport();

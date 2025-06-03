@@ -9,6 +9,8 @@ use App\Http\Controllers\BobotKriteriaController;
 use App\Http\Controllers\NilaiAlternatifController;
 use App\Http\Controllers\PerhitunganController;
 
+use App\Http\Controllers\CoprasController;
+
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -31,6 +33,8 @@ Route::get('/kriteria', [KriteriaController::class, 'index']);
 Route::post('/bobot-kriteria', [BobotKriteriaController::class, 'store']);
 Route::post('/nilai-alternatif', [NilaiAlternatifController::class, 'store']);
 Route::post('/perhitungan', [PerhitunganController::class, 'store']);
+
+Route::post('/hitung-copras', [CoprasController::class, 'hitung']);
 
 
 require __DIR__.'/auth.php';
