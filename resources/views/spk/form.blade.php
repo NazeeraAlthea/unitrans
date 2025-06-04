@@ -181,9 +181,7 @@
             Cek Rekomendasi Transportasi
         </button>
     </div>
-    <div id="hasil-rekomendasi" class="my-10 text-center"></div>
-
-
+    
 
     <script src="{{ asset('js/spk_form.js') }}"></script>
     <script src="{{ asset('js/perhitungan.js') }}"></script>

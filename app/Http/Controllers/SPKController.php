@@ -14,5 +14,10 @@ class SPKController extends Controller
         return view('spk.form', compact('transportasi'));
     }
 
+    public function showHasil()
+    {
+        return view('spk.hasil');
+    }
+
 
 }

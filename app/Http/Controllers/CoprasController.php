@@ -19,7 +19,8 @@ class CoprasController extends Controller
     {
         $alternatif = $request->input('alternatif');
         $bobot = $request->input('bobot');
-        Log::info('Alternatif:', $alternatif);
+        Log::info('Data Alternatif:', $request->input('alternatif'));
+        Log::info('Data Bobot:', $request->input('bobot'));
 
         $hasil = $this->copras($alternatif, $bobot);
 
@@ -103,7 +104,7 @@ class CoprasController extends Controller
         $n = count($alternatif);
         $jenisKriteria = ["cost", "cost", "benefit", "benefit", "benefit"];
 
-        // Matriks (pastikan tidak ada cost = 0)
+        // 1. Matriks Nilai Alternatif
         $matriks = [];
         foreach ($alternatif as $alt) {
             $matriks[] = [
@@ -115,7 +116,7 @@ class CoprasController extends Controller
             ];
         }
 
-        // Normalisasi
+        // 2. Normalisasi
         $norm = [];
         for ($j = 0; $j < 5; $j++) {
             $kolom = array_column($matriks, $j);
@@ -134,13 +135,13 @@ class CoprasController extends Controller
             }
         }
 
-        // Transpose
+        // 3. Transpose Normalisasi
         $normTrans = [];
         for ($i = 0; $i < $n; $i++) {
             $normTrans[$i] = array_column($norm, $i);
         }
 
-        // Matriks berbobot
+        // 4. Matriks Berbobot
         $normBobot = [];
         foreach ($normTrans as $row) {
             $normBobot[] = array_map(function ($val, $idx) use ($bobot) {
@@ -148,10 +149,9 @@ class CoprasController extends Controller
             }, $row, array_keys($row));
         }
 
+        // 5. Hitung S+ dan S-
         $benefitIdx = [2, 3, 4];
         $costIdx = [0, 1];
-
-        // S+ dan S-
         $Splus = [];
         $Smin = [];
         foreach ($normBobot as $row) {
@@ -164,38 +164,35 @@ class CoprasController extends Controller
             return $x > 0;
         })) ?: 1;
 
-        // Qi
+        // 6. Qi
         $Qi = [];
         foreach ($Splus as $i => $splus) {
             $costPart = $Smin[$i] > 0 ? $SminMin * $SminTotal / $Smin[$i] : 0;
             $Qi[] = $splus + $costPart;
         }
 
-        // Ranking
+        // 7. Ranking
         $Qmax = max($Qi) ?: 1;
         $Ui = array_map(function ($q) use ($Qmax) {
             return $q / $Qmax * 100;
         }, $Qi);
 
-        // Cek cost only: jika semua bobot benefit = 0, ranking dari kecil ke besar
-        $totalBenefit = $bobot[2] + $bobot[3] + $bobot[4];
-        $result = [];
-        foreach ($alternatif as $i => $alt) {
-            $result[] = [
-                'nama' => $alt['nama_transportasi'],
-                'Qi' => $Qi[$i],
-                'Ui' => $Ui[$i],
-            ];
-        }
-        if ($totalBenefit == 0) {
-            usort($result, function ($a, $b) {
-                return $a['Qi'] <=> $b['Qi'];
-            });
-        } else {
-            usort($result, function ($a, $b) {
-                return $b['Qi'] <=> $a['Qi'];
-            });
-        }
-        return $result;
+        // Gabungkan semua proses ke array hasil
+        return [
+            'matriks' => $matriks,
+            'normalisasi' => $normTrans,
+            'berbobot' => $normBobot,
+            'Splus' => $Splus,
+            'Smin' => $Smin,
+            'Qi' => $Qi,
+            'Ui' => $Ui,
+            'ranking' => array_map(function ($alt, $i) use ($Qi, $Ui) {
+                return [
+                    'nama' => $alt['nama_transportasi'],
+                    'Qi' => $Qi[$i],
+                    'Ui' => $Ui[$i],
+                ];
+            }, $alternatif, array_keys($alternatif))
+        ];
     }
 }

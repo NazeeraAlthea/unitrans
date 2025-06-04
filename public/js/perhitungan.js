@@ -118,10 +118,11 @@ function hitungCOPRAS(transportAlternatif, bobot) {
 document.getElementById("cek_rekomendasi").onclick = function () {
     updateWaktuMinute();
     let bobot = getBobot();
-    let alternatif = window.transportAlternatif;
-
-    console.log("Bobot:", bobot);
-    console.table("Alternatif:", alternatif);
+    // Ambil transportasi yang dipilih user jika pakai checkbox (jika tidak, bisa seluruh window.transportAlternatif)
+    let alternatif = window.transportAlternatif.filter(alt => {
+        let cb = document.querySelector(`input[name="transportasi[]"][value="${alt.id_transportasi}"]`);
+        return cb && cb.checked;
+    });
 
     fetch("/hitung-copras", {
         method: "POST",
@@ -130,123 +131,25 @@ document.getElementById("cek_rekomendasi").onclick = function () {
             Accept: "application/json",
             "X-CSRF-TOKEN": document
                 .querySelector('meta[name="csrf-token"]')
-                ?.getAttribute("content"), // WAJIB di web.php
+                ?.getAttribute("content"),
         },
         body: JSON.stringify({
             alternatif: alternatif,
             bobot: bobot,
         }),
     })
-        .then((response) => response.json())
-        .then((data) => {
-            if (!data.hasil) {
-                document.getElementById("hasil-rekomendasi").innerHTML =
-                    '<div class="text-red-600">Gagal mendapatkan hasil!</div>';
-                return;
-            }
-
-            // 1. Tabel Ranking Rekomendasi
-            let hasilRankingHTML = `
-        <div class="text-xl font-semibold mb-4">Hasil Rekomendasi Transportasi:</div>
-        <table class="table-auto mx-auto border mb-8">
-            <thead>
-                <tr>
-                    <th class="border px-3 py-1">Ranking</th>
-                    <th class="border px-3 py-1">Transportasi</th>
-                    <th class="border px-3 py-1">Skor (%)</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${data.hasil
-                    .map(
-                        (row, idx) => `
-                <tr>
-                    <td class="border px-3 py-1 text-center">${idx + 1}</td>
-                    <td class="border px-3 py-1">${row.nama}</td>
-                    <td class="border px-3 py-1 text-center">${row.Ui.toFixed(
-                        2
-                    )}</td>
-                </tr>
-                `
-                    )
-                    .join("")}
-            </tbody>
-        </table>
-        <div class="mt-5 text-green-700 font-bold text-lg">
-            Rekomendasi terbaik: <span class="underline">${
-                data.hasil[0].nama
-            }</span>
-        </div>
-    `;
-
-            // 2. Tabel Bobot Kriteria
-            let bobotTableHTML = `
-        <div class="text-lg font-semibold mt-6 mb-2">Bobot Kriteria</div>
-        <table class="table-auto mx-auto border mb-8">
-            <thead>
-                <tr>
-                    <th class="border px-3 py-1">Kriteria</th>
-                    <th class="border px-3 py-1">Bobot</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${data.bobot_kriteria
-                    .map(
-                        (bk) => `
-                <tr>
-                    <td class="border px-3 py-1">${bk.nama_kriteria}</td>
-                    <td class="border px-3 py-1 text-center">${bk.bobot}</td>
-                </tr>
-                `
-                    )
-                    .join("")}
-            </tbody>
-        </table>
-    `;
-
-            // 3. Tabel Nilai Alternatif
-            let nilaiTableHTML = `
-        <div class="text-lg font-semibold mt-6 mb-2">Nilai Alternatif</div>
-        <table class="table-auto mx-auto border mb-8">
-            <thead>
-                <tr>
-                    <th class="border px-3 py-1">Transportasi</th>
-                    <th class="border px-3 py-1">Kriteria</th>
-                    <th class="border px-3 py-1">Nilai</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${data.nilai_alternatif
-                    .map(
-                        (na) => `
-                <tr>
-                    <td class="border px-3 py-1">${na.nama_transportasi}</td>
-                    <td class="border px-3 py-1">${na.nama_kriteria}</td>
-                    <td class="border px-3 py-1 text-center">${na.nilai}</td>
-                </tr>
-                `
-                    )
-                    .join("")}
-            </tbody>
-        </table>
-    `;
-
-            // 4. (Opsional) Tampilkan JSON hasil perhitungan
-            let jsonHasil = JSON.stringify(data.perhitungan, null, 2);
-            let perhitunganJSONHTML = `
-        <div class="text-lg font-semibold mt-6 mb-2">Perhitungan (JSON)</div>
-        <pre class="bg-gray-100 p-3 rounded max-w-2xl mx-auto overflow-x-auto">${jsonHasil}</pre>
-    `;
-
-            // Gabung semuanya ke satu variabel
-            document.getElementById("hasil-rekomendasi").innerHTML =
-                hasilRankingHTML +
-                bobotTableHTML +
-                nilaiTableHTML +
-                perhitunganJSONHTML;
-        })
-        .catch((err) => {
-            alert("Terjadi error saat hitung rekomendasi.");
-            console.error(err);
-        });
+    .then((response) => response.json())
+    .then((data) => {
+        if (data && data.id_perhitungan) {
+            // Ini redirect ke page hasil rekomendasi, bukan tampil di page ini!
+            window.location.href = `/hasil-rekomendasi/${data.id_perhitungan}`;
+        } else {
+            alert("Gagal mendapatkan hasil! Silakan coba ulangi.");
+        }
+    })
+    .catch((err) => {
+        alert("Terjadi error saat hitung rekomendasi.");
+        console.error(err);
+    });
 };
+
