@@ -139,111 +139,149 @@
         </div>
         <!-- Tambahan Table Penilaian Lengkap -->
 
-        <div class="max-w-3xl mx-auto my-10 bg-white rounded-2xl shadow p-8">
-            <h2 class="text-2xl font-bold mb-4 text-center">Tabel Matriks Alternatif</h2>
-            <div class="overflow-x-auto">
-                <table class="table-auto border-collapse w-full text-center">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border px-3 py-1">Transportasi</th>
-                            @foreach ($kriteriaArr as $kr)
-                                <th class="border px-3 py-1">{{ ucfirst($kr) }}</th>
-                            @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($nilaiAlternatif as $row)
+        {{-- MATRICS ALTERNATIF --}}
+        <div class="max-w-4xl mx-auto my-12">
+            <div class="bg-white rounded-3xl shadow-xl px-8 py-6 mb-10 border-2 border-blue-100">
+                <h2 class="text-xl font-bold mb-6 text-blue-600 flex items-center gap-2">
+                    <span class="inline-block w-2 h-8 rounded bg-blue-400 mr-2"></span>
+                    Matriks Alternatif
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full rounded-2xl overflow-hidden shadow border border-blue-200">
+                        <thead class="bg-blue-50">
                             <tr>
-                                <td class="border px-3 py-1 font-semibold">{{ $row['nama'] }}</td>
+                                <th class="px-4 py-2 font-bold text-gray-600 text-left">Transportasi</th>
                                 @foreach ($kriteriaArr as $kr)
-                                    <td class="border px-3 py-1">{{ $row[$kr] }}</td>
+                                    <th class="px-4 py-2 font-bold text-blue-700">{{ ucfirst($kr) }}</th>
                                 @endforeach
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <div class="max-w-3xl mx-auto my-10 bg-white rounded-2xl shadow p-8">
-            <h2 class="text-2xl font-bold mb-4 text-center">Tabel Normalisasi</h2>
-            <div class="overflow-x-auto">
-                <table class="table-auto border-collapse w-full text-center">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border px-3 py-1">Alternatif</th>
-                            @foreach ($kriteriaArr as $kr)
-                                <th class="border px-3 py-1">{{ ucfirst($kr) }}</th>
+                        </thead>
+                        <tbody>
+                            @foreach ($nilaiAlternatif as $row)
+                                <tr class="hover:bg-blue-50 transition">
+                                    <td class="px-4 py-2 font-semibold flex items-center gap-2">
+                                        <span class="text-2xl">{{ $transportasi[$loop->index]['icon'] ?? '🚌' }}</span>
+                                        {{ $row['nama'] }}
+                                    </td>
+                                    @foreach ($kriteriaArr as $kr)
+                                        <td class="px-4 py-2">{{ $row[$kr] }}</td>
+                                    @endforeach
+                                </tr>
                             @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($transportasi as $idx => $alt)
-                            <tr>
-                                <td class="border px-3 py-1 font-semibold">{{ $alt['nama'] }}</td>
-                                @foreach ($normalisasi[$idx] as $v)
-                                    <td class="border px-3 py-1">{{ number_format($v, 4) }}</td>
-                                @endforeach
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <div class="max-w-3xl mx-auto my-10 bg-white rounded-2xl shadow p-8">
-            <h2 class="text-2xl font-bold mb-4 text-center">Tabel Matriks Berbobot</h2>
-            <div class="overflow-x-auto">
-                <table class="table-auto border-collapse w-full text-center">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border px-3 py-1">Alternatif</th>
-                            @foreach ($kriteriaArr as $kr)
-                                <th class="border px-3 py-1">{{ ucfirst($kr) }}</th>
+        {{-- NORMALISASI --}}
+        <div class="max-w-4xl mx-auto my-12">
+            <div class="bg-white rounded-3xl shadow-xl px-8 py-6 mb-10 border-2 border-purple-100">
+                <h2 class="text-xl font-bold mb-6 text-purple-600 flex items-center gap-2">
+                    <span class="inline-block w-2 h-8 rounded bg-purple-400 mr-2"></span>
+                    Tabel Normalisasi
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full rounded-2xl overflow-hidden shadow border border-purple-200">
+                        <thead class="bg-purple-50">
+                            <tr>
+                                <th class="px-4 py-2 font-bold text-gray-600 text-left">Alternatif</th>
+                                @foreach ($kriteriaArr as $kr)
+                                    <th class="px-4 py-2 font-bold text-purple-700">{{ ucfirst($kr) }}</th>
+                                @endforeach
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($transportasi as $idx => $alt)
+                                <tr class="hover:bg-purple-50 transition">
+                                    <td class="px-4 py-2 font-semibold flex items-center gap-2">
+                                        <span class="text-2xl">{{ $alt['icon'] ?? '🚌' }}</span>
+                                        {{ $alt['nama'] }}
+                                    </td>
+                                    @foreach ($normalisasi[$idx] as $v)
+                                        <td class="px-4 py-2">{{ number_format($v, 4) }}</td>
+                                    @endforeach
+                                </tr>
                             @endforeach
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($transportasi as $idx => $alt)
-                            <tr>
-                                <td class="border px-3 py-1 font-semibold">{{ $alt['nama'] }}</td>
-                                @foreach ($berbobot[$idx] as $v)
-                                    <td class="border px-3 py-1">{{ number_format($v, 4) }}</td>
-                                @endforeach
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
 
-        <div class="max-w-3xl mx-auto my-10 bg-white rounded-2xl shadow p-8">
-            <h2 class="text-2xl font-bold mb-4 text-center">Tabel Perhitungan Akhir</h2>
-            <div class="overflow-x-auto">
-                <table class="table-auto border-collapse w-full text-center">
-                    <thead>
-                        <tr class="bg-gray-100">
-                            <th class="border px-3 py-1">Alternatif</th>
-                            <th class="border px-3 py-1">S+</th>
-                            <th class="border px-3 py-1">S-</th>
-                            <th class="border px-3 py-1">Qi</th>
-                            <th class="border px-3 py-1">Ui</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @foreach ($transportasi as $idx => $alt)
+        {{-- MATRIKS BERBOBOT --}}
+        <div class="max-w-4xl mx-auto my-12">
+            <div class="bg-white rounded-3xl shadow-xl px-8 py-6 mb-10 border-2 border-green-100">
+                <h2 class="text-xl font-bold mb-6 text-green-600 flex items-center gap-2">
+                    <span class="inline-block w-2 h-8 rounded bg-green-400 mr-2"></span>
+                    Matriks Berbobot
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full rounded-2xl overflow-hidden shadow border border-green-200">
+                        <thead class="bg-green-50">
                             <tr>
-                                <td class="border px-3 py-1 font-semibold">{{ $alt['nama'] }}</td>
-                                <td class="border px-3 py-1">{{ number_format($Splus[$idx], 4) }}</td>
-                                <td class="border px-3 py-1">{{ number_format($Smin[$idx], 4) }}</td>
-                                <td class="border px-3 py-1">{{ number_format($Qi[$idx], 4) }}</td>
-                                <td class="border px-3 py-1">{{ number_format($Ui[$idx], 2) }}</td>
+                                <th class="px-4 py-2 font-bold text-gray-600 text-left">Alternatif</th>
+                                @foreach ($kriteriaArr as $kr)
+                                    <th class="px-4 py-2 font-bold text-green-700">{{ ucfirst($kr) }}</th>
+                                @endforeach
                             </tr>
-                        @endforeach
-                    </tbody>
-                </table>
+                        </thead>
+                        <tbody>
+                            @foreach ($transportasi as $idx => $alt)
+                                <tr class="hover:bg-green-50 transition">
+                                    <td class="px-4 py-2 font-semibold flex items-center gap-2">
+                                        <span class="text-2xl">{{ $alt['icon'] ?? '🚌' }}</span>
+                                        {{ $alt['nama'] }}
+                                    </td>
+                                    @foreach ($berbobot[$idx] as $v)
+                                        <td class="px-4 py-2">{{ number_format($v, 4) }}</td>
+                                    @endforeach
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
+
+        {{-- PERHITUNGAN AKHIR --}}
+        <div class="max-w-4xl mx-auto my-12">
+            <div class="bg-white rounded-3xl shadow-xl px-8 py-6 border-2 border-orange-200">
+                <h2 class="text-xl font-bold mb-6 text-orange-600 flex items-center gap-2">
+                    <span class="inline-block w-2 h-8 rounded bg-orange-400 mr-2"></span>
+                    Tabel Perhitungan Akhir COPRAS
+                </h2>
+                <div class="overflow-x-auto">
+                    <table class="min-w-full rounded-2xl overflow-hidden shadow border border-orange-200">
+                        <thead class="bg-orange-50">
+                            <tr>
+                                <th class="px-4 py-2 font-bold text-gray-600 text-left">Alternatif</th>
+                                <th class="px-4 py-2 font-bold text-orange-700">S+</th>
+                                <th class="px-4 py-2 font-bold text-orange-700">S-</th>
+                                <th class="px-4 py-2 font-bold text-orange-700">Qi</th>
+                                <th class="px-4 py-2 font-bold text-orange-700">Ui</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($transportasi as $idx => $alt)
+                                <tr class="hover:bg-orange-50 transition">
+                                    <td class="px-4 py-2 font-semibold flex items-center gap-2">
+                                        <span class="text-2xl">{{ $alt['icon'] ?? '🚌' }}</span>
+                                        {{ $alt['nama'] }}
+                                    </td>
+                                    <td class="px-4 py-2">{{ number_format($Splus[$idx], 4) }}</td>
+                                    <td class="px-4 py-2">{{ number_format($Smin[$idx], 4) }}</td>
+                                    <td class="px-4 py-2">{{ number_format($Qi[$idx], 4) }}</td>
+                                    <td class="px-4 py-2 font-bold text-orange-700">{{ number_format($Ui[$idx], 2) }}
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
 
     </div>
 
