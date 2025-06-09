@@ -104,84 +104,80 @@
     </section>
 
     {{-- bobot --}}
-    <section class="w-full mt-16 bg-white rounded-2xl border-2 border-gray-200 shadow p-10 max-w-4xl mx-auto">
-        <h2 class="text-3xl font-bold mb-8 tracking-wider">Faktor Penilaian</h2>
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-10 gap-y-14">
+    <section class="w-full mt-16 bg-white rounded-2xl border-2 border-gray-200 shadow px-8 py-14 max-w-4xl mx-auto">
+        <h2 class="text-3xl md:text-4xl font-bold mb-14 tracking-wider">Faktor Penilaian</h2>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-20">
             <!-- Biaya Perjalanan -->
-            <div class="flex flex-col items-center">
-                <div class="text-gray-400 text-lg mb-2">Biaya Perjalanan</div>
-                <div class="relative flex items-center justify-center w-full mb-2" style="height: 36px;">
+            <div class="flex flex-col items-center pt-2 pb-2">
+                <div class="text-gray-400 text-lg mb-16 just">Biaya Perjalanan</div>
+                <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-biaya"
-                        class="absolute left-1/2 -translate-x-1/2 -top-7 px-3 py-1 rounded-lg text-white text-base font-semibold bg-blue-500">78</span>
-                    <input id="slider-biaya" type="range" min="0" max="100" value="78"
-                        class="w-full h-2 rounded-lg appearance-none bg-gradient-to-r from-blue-500 to-blue-200 focus:outline-none outline-none transition-all
-          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-          [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-blue-500 shadow-md select-none">1</span>
+                    <input id="slider-biaya" type="range" min="1" max="100" value="1"
+                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-blue-500 to-blue-200/60 focus:outline-none transition-all
+      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
+      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
                 </div>
             </div>
             <!-- Waktu Tempuh -->
-            <div class="flex flex-col items-center">
-                <div class="text-gray-400 text-lg mb-2">Waktu Tempuh</div>
-                <div class="relative flex items-center justify-center w-full mb-2" style="height: 36px;">
+            <div class="flex flex-col items-center pt-2 pb-2">
+                <div class="text-gray-400 text-lg mb-1">Waktu Tempuh</div>
+                <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-waktu"
-                        class="absolute left-1/2 -translate-x-1/2 -top-7 px-3 py-1 rounded-lg text-white text-base font-semibold bg-purple-400">78</span>
-                    <input id="slider-waktu" type="range" min="0" max="100" value="78"
-                        class="w-full h-2 rounded-lg appearance-none bg-gradient-to-r from-purple-500 to-purple-200 focus:outline-none outline-none transition-all
-          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-          [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-purple-400 shadow-md select-none">1</span>
+                    <input id="slider-waktu" type="range" min="1" max="100" value="1"
+                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-purple-500 to-purple-200/60 focus:outline-none transition-all
+      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
+      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
                 </div>
             </div>
             <!-- Keamanan -->
-            <div class="flex flex-col items-center">
-                <div class="text-gray-400 text-lg mb-2 flex items-center gap-1">
-                    Keamanan
-                    <svg width="18" height="18" class="inline" fill="none">
-                        <circle cx="9" cy="9" r="8" stroke="#F44336" stroke-width="2" /><text x="7"
-                            y="13" font-size="10" fill="#F44336">i</text>
-                    </svg>
-                </div>
-                <div class="relative flex items-center justify-center w-full mb-2" style="height: 36px;">
+            <div class="flex flex-col items-center pt-2 pb-2">
+                <div class="text-gray-400 text-lg mb-1">Keamanan</div>
+                <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-keamanan"
-                        class="absolute left-1/2 -translate-x-1/2 -top-7 px-3 py-1 rounded-lg text-white text-base font-semibold bg-red-400">78</span>
-                    <input id="slider-keamanan" type="range" min="0" max="100" value="78"
-                        class="w-full h-2 rounded-lg appearance-none bg-gradient-to-r from-red-400 to-red-200 focus:outline-none outline-none transition-all
-          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-          [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-red-400 shadow-md select-none">1</span>
+                    <input id="slider-keamanan" type="range" min="1" max="100" value="1"
+                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-red-400 to-red-200/60 focus:outline-none transition-all
+      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
+      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
                 </div>
             </div>
             <!-- Kenyamanan -->
-            <div class="flex flex-col items-center">
-                <div class="text-gray-400 text-lg mb-2">Kenyamanan</div>
-                <div class="relative flex items-center justify-center w-full mb-2" style="height: 36px;">
+            <div class="flex flex-col items-center pt-2 pb-2">
+                <div class="text-gray-400 text-lg mb-1">Kenyamanan</div>
+                <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-kenyamanan"
-                        class="absolute left-1/2 -translate-x-1/2 -top-7 px-3 py-1 rounded-lg text-white text-base font-semibold bg-orange-400">78</span>
-                    <input id="slider-kenyamanan" type="range" min="0" max="100" value="78"
-                        class="w-full h-2 rounded-lg appearance-none bg-gradient-to-r from-orange-400 to-orange-200 focus:outline-none outline-none transition-all
-          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-          [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-orange-400 shadow-md select-none">1</span>
+                    <input id="slider-kenyamanan" type="range" min="1" max="100" value="1"
+                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-orange-400 to-orange-200/60 focus:outline-none transition-all
+      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
+      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
                 </div>
             </div>
             <!-- Aksesbilitas -->
-            <div class="flex flex-col items-center">
-                <div class="text-gray-400 text-lg mb-2">Aksesbilitas</div>
-                <div class="relative flex items-center justify-center w-full mb-2" style="height: 36px;">
+            <div class="flex flex-col items-center pt-2 pb-2">
+                <div class="text-gray-400 text-lg mb-1">Aksesbilitas</div>
+                <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-aksesbilitas"
-                        class="absolute left-1/2 -translate-x-1/2 -top-7 px-3 py-1 rounded-lg text-white text-base font-semibold bg-green-500">78</span>
-                    <input id="slider-aksesbilitas" type="range" min="0" max="100" value="78"
-                        class="w-full h-2 rounded-lg appearance-none bg-gradient-to-r from-green-500 to-green-200 focus:outline-none outline-none transition-all
-          [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-          [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-green-500 shadow-md select-none">1</span>
+                    <input id="slider-aksesbilitas" type="range" min="1" max="100" value="1"
+                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-green-500 to-green-200/60 focus:outline-none transition-all
+      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
+      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
                 </div>
             </div>
+            <div class="hidden md:block"></div>
         </div>
     </section>
+
     <div class="flex justify-center my-10">
         <button id="cek_rekomendasi"
             class="bg-green-600 text-white px-8 py-3 rounded-2xl font-semibold shadow hover:bg-green-700 text-lg transition">
             Cek Rekomendasi Transportasi
         </button>
     </div>
-    
+
 
     <script src="{{ asset('js/spk_form.js') }}"></script>
     <script src="{{ asset('js/perhitungan.js') }}"></script>

@@ -183,6 +183,7 @@ function hitungHarga(alt, distance) {
     }
 }
 
+// transportasi
 document.addEventListener("DOMContentLoaded", function () {
     // Fetch data transportasi dari backend, render setelah data masuk!
     fetch('/transportasi')
@@ -271,7 +272,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 });
 
-// bobot
+// bobot angka slider
 
 document.addEventListener("DOMContentLoaded", function () {
     // ... kode fetch & renderTransport & cek_estimasi kamu

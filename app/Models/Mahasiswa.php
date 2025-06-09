@@ -10,6 +10,9 @@ class Mahasiswa extends Model
     protected $table = 'mahasiswa';
     protected $primaryKey = 'id';
     public $timestamps = false;
+    protected $fillable = [
+        'email', 'password', 'nama'
+    ];
 
     // Contoh relasi ke nilai/bobot
     public function nilaiAlternatif()
