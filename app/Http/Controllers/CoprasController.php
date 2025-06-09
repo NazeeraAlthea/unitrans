@@ -33,6 +33,8 @@ class CoprasController extends Controller
             return ['id_kriteria' => $k->id_kriteria, 'nama_kriteria' => $k->nama_kriteria];
         })->toArray();
 
+        $id_mahasiswa = session('mahasiswa_id');
+
         foreach ($alternatif as $alt) {
             foreach ($listKriteria as $kriteria) {
                 $field = $kriteria['nama_kriteria'];
@@ -43,7 +45,7 @@ class CoprasController extends Controller
                     $value = $alt[$field];
                 }
                 NilaiAlternatif::create([
-                    'id_mahasiswa'    => null,
+                    'id_mahasiswa'    => $id_mahasiswa,
                     'id_transportasi' => $alt['id_transportasi'],
                     'id_kriteria'     => $kriteria['id_kriteria'],
                     'nilai'           => $value,

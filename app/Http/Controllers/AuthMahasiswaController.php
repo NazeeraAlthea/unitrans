@@ -32,6 +32,7 @@ class AuthMahasiswaController extends Controller
         }
 
         session(['mahasiswa_id' => $mahasiswa->id, 'mahasiswa_nama' => $mahasiswa->nama]);
+        $request->session()->regenerate();
         // Jika login gagal
         return back()->withErrors(['email' => 'Email atau password salah'])->withInput();
     }

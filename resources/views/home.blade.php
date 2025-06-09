@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <title>UniTrans - Find Your Perfect Transportation</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    @vite('resources/css/app.css') <!-- jika pakai laravel vite dan tailwind -->
+    {{-- @vite('resources/css/app.css') <!-- jika pakai laravel vite dan tailwind --> --}}
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
 
 <body class="bg-white min-h-screen flex items-center">
