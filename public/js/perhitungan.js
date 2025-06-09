@@ -51,14 +51,20 @@ function updateWaktuMinute() {
 
 // Event tombol cek rekomendasi
 document.getElementById("cek_rekomendasi").onclick = function () {
+    
+
     updateWaktuMinute();
     let bobot = getBobot();
     // Ambil transportasi yang dipilih user jika pakai checkbox (jika tidak, bisa seluruh window.transportAlternatif)
-    let alternatif = window.transportAlternatif.filter(alt => {
-        let cb = document.querySelector(`input[name="transportasi[]"][value="${alt.id_transportasi}"]`);
+    let alternatif = window.transportAlternatif.filter((alt) => {
+        let cb = document.querySelector(
+            `input[name="transportasi[]"][value="${alt.id_transportasi}"]`
+        );
         return cb && cb.checked;
     });
 
+    console.log("Alternatif yang dikirim:", alternatif);
+    console.log("Bobot:", bobot);
     fetch("/hitung-copras", {
         method: "POST",
         headers: {
@@ -73,18 +79,17 @@ document.getElementById("cek_rekomendasi").onclick = function () {
             bobot: bobot,
         }),
     })
-    .then((response) => response.json())
-    .then((data) => {
-        if (data && data.id_perhitungan) {
-            // Ini redirect ke page hasil rekomendasi, bukan tampil di page ini!
-            window.location.href = `/hasil-rekomendasi/${data.id_perhitungan}`;
-        } else {
-            alert("Gagal mendapatkan hasil! Silakan coba ulangi.");
-        }
-    })
-    .catch((err) => {
-        alert("Terjadi error saat hitung rekomendasi.");
-        console.error(err);
-    });
+        .then((response) => response.json())
+        .then((data) => {
+            if (data && data.id_perhitungan) {
+                // Ini redirect ke page hasil rekomendasi, bukan tampil di page ini!
+                window.location.href = `/hasil-rekomendasi/${data.id_perhitungan}`;
+            } else {
+                alert("Gagal mendapatkan hasil! Silakan coba ulangi.");
+            }
+        })
+        .catch((err) => {
+            alert("Terjadi error saat hitung rekomendasi.");
+            console.error(err);
+        });
 };
-

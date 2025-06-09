@@ -13,50 +13,14 @@
 
     <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_MAPS_API_KEY') }}&libraries=places"></script>
 
-    {{-- <style>
-        /* Contoh untuk orange, ganti sesuai warna tiap transportasi */
-        .shadow-inner-top-strong-orange {
-            box-shadow: inset 0 8px 32px 0 #FFA726cc !important;
-            /* #FFA726cc = orange, opacity 80% */
+    <style>
+        .slider-transport {
+            accent-color: #d1d5db;
+            /* gray-300 default */
+            height: 32px;
+            /* Tinggi area agar thumb tidak terpotong */
         }
-
-        .border-orange-strong {
-            border-color: #FFA726 !important;
-        }
-
-        .shadow-inner-top-strong-red {
-            box-shadow: inset 0 8px 32px 0 #EF5350cc !important;
-        }
-
-        .border-red-strong {
-            border-color: #EF5350 !important;
-        }
-
-        /* Tambahkan untuk warna lain sesuai kebutuhan */
-        .shadow-inner-top-strong-green {
-            box-shadow: inset 0 8px 32px 0 #66BB6Acc !important;
-        }
-
-        .border-green-strong {
-            border-color: #66BB6A !important;
-        }
-
-        .shadow-inner-top-strong-blue {
-            box-shadow: inset 0 8px 32px 0 #007BFFcc !important;
-        }
-
-        .border-blue-strong {
-            border-color: #007BFF !important;
-        }
-
-        .shadow-inner-top-strong-purple {
-            box-shadow: inset 0 8px 32px 0 #BA68C8cc !important;
-        }
-
-        .border-purple-strong {
-            border-color: #BA68C8 !important;
-        }
-    </style> --}}
+    </style>
 
 
 </head>
@@ -107,69 +71,70 @@
     <section class="w-full mt-16 bg-white rounded-2xl border-2 border-gray-200 shadow px-8 py-14 max-w-4xl mx-auto">
         <h2 class="text-3xl md:text-4xl font-bold mb-14 tracking-wider">Faktor Penilaian</h2>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-20">
-            <!-- Biaya Perjalanan -->
+
+            <!-- BIAYA -->
             <div class="flex flex-col items-center pt-2 pb-2">
-                <div class="text-gray-400 text-lg mb-16 just">Biaya Perjalanan</div>
+                <div class="text-lg mb-10 font-semibold" style="color:#007BFF">Biaya Perjalanan</div>
                 <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-biaya"
-                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-blue-500 shadow-md select-none">1</span>
-                    <input id="slider-biaya" type="range" min="1" max="100" value="1"
-                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-blue-500 to-blue-200/60 focus:outline-none transition-all
-      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold shadow-md select-none"
+                        style="background:#007BFF">1</span>
+                    <input id="slider-biaya" type="range" min="1" max="100" value="1" class="w-full"
+                        style="accent-color: #007BFF;">
                 </div>
             </div>
-            <!-- Waktu Tempuh -->
+
+            <!-- WAKTU -->
             <div class="flex flex-col items-center pt-2 pb-2">
-                <div class="text-gray-400 text-lg mb-1">Waktu Tempuh</div>
+                <div class="text-lg mb-10 font-semibold" style="color:#BA68C8">Waktu Tempuh</div>
                 <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-waktu"
-                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-purple-400 shadow-md select-none">1</span>
-                    <input id="slider-waktu" type="range" min="1" max="100" value="1"
-                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-purple-500 to-purple-200/60 focus:outline-none transition-all
-      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold shadow-md select-none"
+                        style="background:#BA68C8">1</span>
+                    <input id="slider-waktu" type="range" min="1" max="100" value="1" class="w-full"
+                        style="accent-color: #BA68C8;">
                 </div>
             </div>
-            <!-- Keamanan -->
+
+            <!-- KEAMANAN -->
             <div class="flex flex-col items-center pt-2 pb-2">
-                <div class="text-gray-400 text-lg mb-1">Keamanan</div>
+                <div class="text-lg mb-10 font-semibold" style="color:#EF5350">Keamanan</div>
                 <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-keamanan"
-                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-red-400 shadow-md select-none">1</span>
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold shadow-md select-none"
+                        style="background:#EF5350">1</span>
                     <input id="slider-keamanan" type="range" min="1" max="100" value="1"
-                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-red-400 to-red-200/60 focus:outline-none transition-all
-      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="w-full" style="accent-color: #EF5350;">
                 </div>
             </div>
-            <!-- Kenyamanan -->
+
+            <!-- KENYAMANAN -->
             <div class="flex flex-col items-center pt-2 pb-2">
-                <div class="text-gray-400 text-lg mb-1">Kenyamanan</div>
+                <div class="text-lg mb-10 font-semibold" style="color:#FFA726">Kenyamanan</div>
                 <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-kenyamanan"
-                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-orange-400 shadow-md select-none">1</span>
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold shadow-md select-none"
+                        style="background:#FFA726">1</span>
                     <input id="slider-kenyamanan" type="range" min="1" max="100" value="1"
-                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-orange-400 to-orange-200/60 focus:outline-none transition-all
-      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="w-full" style="accent-color: #FFA726;">
                 </div>
             </div>
-            <!-- Aksesbilitas -->
+
+            <!-- AKSESBILITAS -->
             <div class="flex flex-col items-center pt-2 pb-2">
-                <div class="text-gray-400 text-lg mb-1">Aksesbilitas</div>
+                <div class="text-lg mb-10 font-semibold" style="color:#66BB6A">Aksesbilitas</div>
                 <div class="relative flex items-center justify-center w-full mb-2" style="height: 52px;">
                     <span id="label-aksesbilitas"
-                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold bg-green-500 shadow-md select-none">1</span>
+                        class="absolute left-1/2 -translate-x-1/2 -top-9 px-4 py-1.5 rounded-lg text-white text-base font-bold shadow-md select-none"
+                        style="background:#66BB6A">1</span>
                     <input id="slider-aksesbilitas" type="range" min="1" max="100" value="1"
-                        class="w-full h-[12px] rounded-lg appearance-none bg-gradient-to-r from-green-500 to-green-200/60 focus:outline-none transition-all
-      [&::-webkit-slider-thumb]:appearance-none [&::-webkit-slider-thumb]:w-8 [&::-webkit-slider-thumb]:h-8
-      [&::-webkit-slider-thumb]:bg-white [&::-webkit-slider-thumb]:rounded-full [&::-webkit-slider-thumb]:shadow-lg" />
+                        class="w-full" style="accent-color: #66BB6A;">
                 </div>
             </div>
             <div class="hidden md:block"></div>
         </div>
     </section>
+    
 
     <div class="flex justify-center my-10">
         <button id="cek_rekomendasi"
