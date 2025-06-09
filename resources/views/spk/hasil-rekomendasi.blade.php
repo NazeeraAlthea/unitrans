@@ -8,7 +8,7 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen font-sans">
-    <div class="max-w-2xl mx-auto py-12 px-4 bg-white rounded-3xl shadow-lg">
+    <div class="max-w-4xl mx-auto py-12 px-4 bg-white rounded-3xl shadow-lg">
         <h1 class="text-3xl font-bold text-center mb-10">HASIL REKOMENDASI TERATAS</h1>
 
         @php
@@ -103,44 +103,44 @@
 
         <!-- Bobot Kriteria -->
         <div class="text-center text-lg font-semibold mb-4">Bobot yang diterapkan</div>
-        <div class="flex flex-wrap justify-center gap-4">
+        <div class="flex flex-wrap justify-center gap-4 my-10">
             @foreach ($bobot as $bk)
-                <div class="flex items-center bg-gray-50 px-4 py-2 rounded-xl shadow text-base font-semibold">
-                    @switch($bk['nama_kriteria'])
-                        @case('harga')
-                            <span class="mr-2">💸</span>
-                        @break
-
-                        @case('waktu')
-                            <span class="mr-2">⏰</span>
-                        @break
-
-                        @case('keamanan')
-                            <span class="mr-2">🛡️</span>
-                        @break
-
-                        @case('kenyamanan')
-                            <span class="mr-2">🛋️</span>
-                        @break
-
-                        @case('aksesbilitas')
-                            <span class="mr-2">♿</span>
-                        @break
-
-                        @default
-                            <span class="mr-2">🔹</span>
-                    @endswitch
-                    {{ ucfirst($bk['nama_kriteria']) }}
-                    <span class="ml-2 font-bold text-blue-500">
+                @php
+                    // Pilih warna background dan text sesuai kriteria
+                    $warna = match ($bk['nama_kriteria']) {
+                        'harga' => 'bg-blue-50 text-blue-700 ring-2 ring-blue-200',
+                        'waktu' => 'bg-purple-50 text-purple-700 ring-2 ring-purple-200',
+                        'keamanan' => 'bg-red-50 text-red-700 ring-2 ring-red-200',
+                        'kenyamanan' => 'bg-yellow-50 text-yellow-700 ring-2 ring-yellow-200',
+                        'aksesbilitas' => 'bg-green-50 text-green-700 ring-2 ring-green-200',
+                        default => 'bg-gray-50 text-gray-700 ring-2 ring-gray-200',
+                    };
+                    // Pilih ikon
+                    $ikon = match ($bk['nama_kriteria']) {
+                        'harga' => '💸',
+                        'waktu' => '⏰',
+                        'keamanan' => '🛡️',
+                        'kenyamanan' => '🛋️',
+                        'aksesbilitas' => '♿',
+                        default => '🔹',
+                    };
+                @endphp
+                <div
+                    class="flex items-center px-5 py-3 rounded-2xl shadow-lg font-semibold text-lg {{ $warna }} transition-all duration-150 min-w-[170px] justify-center">
+                    <span class="mr-2 text-2xl">{{ $ikon }}</span>
+                    <span class="tracking-wide">{{ ucfirst($bk['nama_kriteria']) }}</span>
+                    <span
+                        class="ml-3 text-xl font-extrabold @if ($bk['nama_kriteria'] == 'harga') text-blue-500 @elseif($bk['nama_kriteria'] == 'waktu') text-purple-500 @elseif($bk['nama_kriteria'] == 'keamanan') text-red-500 @elseif($bk['nama_kriteria'] == 'kenyamanan') text-yellow-500 @elseif($bk['nama_kriteria'] == 'aksesbilitas') text-green-600 @endif">
                         {{ round($bk['bobot'] * 100) }}%
                     </span>
                 </div>
             @endforeach
         </div>
+
         <!-- Tambahan Table Penilaian Lengkap -->
 
         {{-- MATRICS ALTERNATIF --}}
-        <div class="max-w-4xl mx-auto my-12">
+        <div class="max-w-6xl mx-auto my-12">
             <div class="bg-white rounded-3xl shadow-xl px-8 py-6 mb-10 border-2 border-blue-100">
                 <h2 class="text-xl font-bold mb-6 text-blue-600 flex items-center gap-2">
                     <span class="inline-block w-2 h-8 rounded bg-blue-400 mr-2"></span>

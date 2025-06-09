@@ -97,8 +97,6 @@ class CoprasController extends Controller
         ]);
     }
 
-
-
     private function copras($alternatif, $bobot)
     {
         $n = count($alternatif);
