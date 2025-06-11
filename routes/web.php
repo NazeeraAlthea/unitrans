@@ -15,6 +15,8 @@ use App\Http\Controllers\CoprasController;
 use App\Http\Controllers\AuthMahasiswaController;
 use App\Http\Controllers\ProfileController;
 
+use App\Http\Controllers\Auth\GoogleController;
+
 Route::get('/', function () {
     return view('home');
 })->name('home');
@@ -59,5 +61,8 @@ Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::delete('/riwayat/{id_perhitungan}/delete', [\App\Http\Controllers\ProfileController::class, 'delete'])->name('delete-history');
 Route::post('/update-nama-mahasiswa', [\App\Http\Controllers\ProfileController::class, 'updateNama'])->name('update-nama-mahasiswa');
 
+// google
+Route::get('/auth/google/redirect', [GoogleController::class, 'redirect'])->name('google.redirect');
+Route::get('/auth/google/callback', [GoogleController::class, 'callback'])->name('google.callback');
 
 require __DIR__.'/auth.php';
