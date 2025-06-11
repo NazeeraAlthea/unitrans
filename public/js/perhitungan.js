@@ -51,8 +51,6 @@ function updateWaktuMinute() {
 
 // Event tombol cek rekomendasi
 document.getElementById("cek_rekomendasi").onclick = function () {
-    
-
     updateWaktuMinute();
     let bobot = getBobot();
     // Ambil transportasi yang dipilih user jika pakai checkbox (jika tidak, bisa seluruh window.transportAlternatif)
@@ -81,15 +79,21 @@ document.getElementById("cek_rekomendasi").onclick = function () {
     })
         .then((response) => response.json())
         .then((data) => {
-             console.log("RESPONSE DATA:", data);
-             if (data && data.id_perhitungan) {
-                 window.location.href = `/hasil-rekomendasi/${data.id_perhitungan}`;
+            if (data.error === "Unauthenticated") {
+                Swal.fire({
+                    title: "Login Diperlukan",
+                    text: "Silakan login terlebih dahulu untuk menggunakan fitur ini.",
+                    icon: "warning",
+                    confirmButtonText: "OK",
+                }).then(() => {
+                    window.location.href = "/login-mahasiswa";
+                });
+                return;
+            }
+            if (data && data.id_perhitungan) {
+                window.location.href = `/hasil-rekomendasi/${data.id_perhitungan}`;
             } else {
                 alert("Gagal mendapatkan hasil! Silakan coba ulangi.");
             }
-        })
-        .catch((err) => {
-            alert("Terjadi error saat hitung rekomendasi.");
-            console.error(err);
         });
 };

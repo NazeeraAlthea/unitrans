@@ -8,6 +8,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <!-- Tailwind CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
     <!-- Google Maps Places API -->
 
@@ -26,9 +27,24 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen flex flex-col items-center justify-start">
+    <!-- Branding -->
+    <div class="fixed top-10 px-10 text-xl font-bold text-gray-900 flex justify-between w-full">
+        <a href="{{ route('home') }}">Unitrans</a>
+        @if (session('mahasiswa_id'))
+            <a href="{{ route('profile') }}"
+                class="px-6 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold shadow border border-blue-100">
+                Halo, {{ session('mahasiswa_nama') }}!
+            </a>
+        @else
+            <a href="{{ route('login-mahasiswa') }}"
+                class="px-6 py-2 rounded-lg border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-600 hover:text-white transition">
+                Login
+            </a>
+        @endif
+    </div>
 
     <!-- SECTION: Search Lokasi (Tetap Flex-row, Card) -->
-    <div class="container mx-auto py-10">
+    <div class="container mx-auto pt-24">
         <div class="max-w-4xl mx-auto">
             <div
                 class="bg-white border-2 border-gray-200 rounded-3xl px-10 py-8 shadow flex flex-col md:flex-row items-center gap-8">
@@ -134,7 +150,7 @@
             <div class="hidden md:block"></div>
         </div>
     </section>
-    
+
 
     <div class="flex justify-center my-10">
         <button id="cek_rekomendasi"

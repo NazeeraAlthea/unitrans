@@ -10,7 +10,7 @@ class CreatePerhitunganTable extends Migration
     {
         Schema::create('perhitungan', function (Blueprint $table) {
             $table->increments('id_perhitungan');
-            $table->unsignedInteger('id_mahasiswa')->nullable();
+            $table->unsignedInteger('id_mahasiswa');
             $table->timestamp('waktu_perhitungan')->useCurrent();
             $table->text('hasil_json')->nullable();
 

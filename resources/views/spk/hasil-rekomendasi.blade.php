@@ -8,7 +8,24 @@
 </head>
 
 <body class="bg-gray-50 min-h-screen font-sans">
+
+    <!-- Branding -->
+    <div class="fixed top-10 px-10 text-xl font-bold text-gray-900 flex justify-between w-full">
+        <<a href="{{ route('home') }}">Unitrans</a>
+        @if (session('mahasiswa_id'))
+            <a href="{{ route('profile') }}"
+                class="px-6 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold shadow border border-blue-100">
+                Halo, {{ session('mahasiswa_nama') }}!
+            </a>
+        @else
+            <a href="{{ route('login-mahasiswa') }}"
+                class="px-6 py-2 rounded-lg border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-600 hover:text-white transition">
+                Login
+            </a>
+        @endif
+    </div>
     <div class="max-w-4xl mx-auto py-12 px-4 bg-white rounded-3xl shadow-lg">
+
         <h1 class="text-3xl md:text-4xl font-bold text-center mb-10 tracking-wide">🏆 Hasil Rekomendasi Teratas 🏆</h1>
 
         @php
@@ -34,7 +51,7 @@
         @if ($juara1)
             <div class="flex flex-col items-center mb-12">
                 <div class="relative group">
-                    
+
                     <div class="absolute -top-7 left-1/2 -translate-x-1/2 z-10">
                         <span
                             class="inline-block bg-gradient-to-r from-yellow-400 to-yellow-200 text-yellow-900 font-black px-4 py-2 rounded-full text-lg shadow-lg border-2 border-yellow-500 animate-bounce">

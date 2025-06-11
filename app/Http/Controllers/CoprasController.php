@@ -18,6 +18,12 @@ class CoprasController extends Controller
     public function hitung(Request $request)
     {
         $id_mahasiswa = session('mahasiswa_id');
+        if (!$id_mahasiswa) {
+        // Balas dengan pesan error 401 (unauthenticated)
+        return response()->json([
+            'error' => 'Unauthenticated'
+        ], 401);
+    }
         
         $alternatif = $request->input('alternatif');
         $bobot = $request->input('bobot');

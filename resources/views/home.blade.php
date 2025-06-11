@@ -14,7 +14,7 @@
 
     <!-- Branding -->
     <div class="fixed top-10 px-10 text-xl font-bold text-gray-900 flex justify-between w-full">
-        <div>Unitrans</div>
+        <a href="{{ route('home') }}">Unitrans</a>
         @if (session('mahasiswa_id'))
             <a href="{{ route('profile') }}" class="px-6 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold shadow border border-blue-100">
                 Halo, {{ session('mahasiswa_nama') }}!
