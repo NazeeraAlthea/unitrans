@@ -42,14 +42,15 @@
                 <input name="password" type="password" placeholder="Password"
                     class="w-full border border-gray-300 rounded-full px-4 py-3 focus:outline-none focus:ring-2 focus:ring-blue-200"
                     required>
-                <div class="flex items-center justify-between">
-                    <label class="flex items-center text-gray-500 text-sm select-none">
-                        <input type="checkbox" name="remember" class="mr-2 rounded">
-                        Save Account
-                    </label>
-                    <a href="{{ route('password.request') }}" class="text-red-400 text-sm hover:underline">Forgot
-                        password?</a>
-                </div>
+
+                <div class="g-recaptcha" data-sitekey="{{ env('NOCAPTCHA_SITEKEY') }}"></div>
+                <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+                @if ($errors->has('g-recaptcha-response'))
+                    <div class="text-red-500 text-sm mt-1">
+                        {{ $errors->first('g-recaptcha-response') }}
+                    </div>
+                @endif
+
                 <button type="submit"
                     class="w-full bg-gray-800 text-white rounded-full py-3 font-semibold text-lg shadow hover:bg-gray-900 transition">
                     Sign In

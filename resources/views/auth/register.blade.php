@@ -47,17 +47,7 @@
                     Create Account
                 </button>
             </form>
-            <!-- Divider -->
-            <div class="flex items-center my-6">
-                <hr class="flex-1 border-t border-gray-300">
-                <span class="mx-3 text-gray-400 text-sm">or</span>
-                <hr class="flex-1 border-t border-gray-300">
-            </div>
-            <!-- Google Sign Up (DISABLED/PLACEHOLDER) -->
-            {{-- <button class="w-full flex items-center justify-center border border-gray-400 rounded-full py-3 font-semibold text-base bg-white shadow-sm hover:bg-gray-50">
-                <img src="https://www.svgrepo.com/show/355037/google.svg" class="w-5 h-5 mr-3" alt="Google logo">
-                Sign Up with Google
-            </button> --}}
+    
         </div>
         <!-- RIGHT SIDE: Image -->
         <div class="flex-1 flex items-center justify-center relative p-10">
