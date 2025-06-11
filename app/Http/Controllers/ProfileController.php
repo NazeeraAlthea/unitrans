@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Mahasiswa;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 class ProfileController extends Controller
 {
@@ -51,4 +52,23 @@ class ProfileController extends Controller
 
         return redirect()->route('profile')->with('success', 'Riwayat rekomendasi berhasil dihapus!');
     }
+
+public function updateNama(Request $request)
+{
+    $request->validate([
+        'nama' => 'required|string|max:100'
+    ]);
+
+    $mahasiswa = \App\Models\Mahasiswa::find(session('mahasiswa_id'));
+    if (!$mahasiswa) {
+        dd('Mahasiswa not found', session('mahasiswa_id'));
+    }
+
+    $mahasiswa->nama = $request->nama;
+    $mahasiswa->save();
+
+    return redirect()->route('profile');
+}
+
+
 }

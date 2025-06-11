@@ -57,6 +57,7 @@ Route::post('/register-mahasiswa', [AuthMahasiswaController::class, 'register'])
 // profile
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 Route::delete('/riwayat/{id_perhitungan}/delete', [\App\Http\Controllers\ProfileController::class, 'delete'])->name('delete-history');
+Route::post('/update-nama-mahasiswa', [\App\Http\Controllers\ProfileController::class, 'updateNama'])->name('update-nama-mahasiswa');
 
 
 require __DIR__.'/auth.php';
