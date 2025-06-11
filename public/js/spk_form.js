@@ -16,7 +16,7 @@ function initAutocomplete() {
 }
 window.onload = initAutocomplete;
 
-const tujuan = "Universitas Indonesia, Depok, Indonesia";
+const tujuan = "Politeknik Negeri Jakarta";
 window.transportAlternatif = []; // Akan diisi lewat fetch!
 
 const cardColors = ["#007BFF", "#FFA726", "#66BB6A", "#BA68C8", "#EF5350"];
