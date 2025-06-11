@@ -9,6 +9,15 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white min-h-screen flex items-center justify-center">
+    @if ($errors->any())
+    <div class="mb-4">
+        <div class="fixed right-0 top-0 mt-3 mr-3 bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-center" role="alert">
+            {{ $errors->first() }}
+        </div>
+    </div>
+@endif
+
+
     <div class="w-full max-w-5xl flex flex-col md:flex-row shadow-lg rounded-2xl overflow-hidden bg-white">
         <!-- LEFT SIDE: Login Form -->
         <div class="flex-1 flex flex-col justify-center p-12">
@@ -52,6 +61,7 @@
                     Sign In
                 </button>
             </form>
+            
             <!-- Divider -->
             <div class="flex items-center my-6">
                 <hr class="flex-1 border-t border-gray-300">
@@ -75,6 +85,8 @@
                 >
             </div>
         </div>
+        
     </div>
+    
 </body>
 </html>

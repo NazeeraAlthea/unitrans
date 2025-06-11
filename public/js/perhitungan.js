@@ -83,9 +83,7 @@ document.getElementById("cek_rekomendasi").onclick = function () {
         .then((data) => {
              console.log("RESPONSE DATA:", data);
              if (data && data.id_perhitungan) {
-                 // Ini redirect ke page hasil rekomendasi, bukan tampil di page ini!
-                 // window.location.href = `/hasil-rekomendasi/${data.id_perhitungan}`;
-                 console.log("RESPONSE DATA:", data);
+                 window.location.href = `/hasil-rekomendasi/${data.id_perhitungan}`;
             } else {
                 alert("Gagal mendapatkan hasil! Silakan coba ulangi.");
             }

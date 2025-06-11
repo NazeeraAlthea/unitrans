@@ -9,6 +9,21 @@ class RekomendasiController extends Controller
 {
     public function show($id_perhitungan)
     {
+
+        $userId = session('mahasiswa_id');
+
+        // Cek: Apakah perhitungan ini milik user yang login?
+        $perhitungan = DB::table('perhitungan')
+            ->where('id_perhitungan', $id_perhitungan)
+            ->where('id_mahasiswa', $userId)
+            ->first();
+
+        if (!$perhitungan) {
+            return redirect()->route('home')->with('error', 'Anda tidak punya akses ke hasil ini!');
+        }
+
+
+
         // 1. Ambil data transportasi dan kriteria
         $transportasi = DB::table('transportasi')->get()->keyBy('id_transportasi');
         $kriteria = DB::table('kriteria')->orderBy('id_kriteria')->get()->keyBy('id_kriteria');
@@ -83,7 +98,9 @@ class RekomendasiController extends Controller
                     $norm[$j][] = $sum == 0 ? 0 : $val / $sum;
                 }
             } else { // cost
-                $filtered = array_filter($kolom[$j], function ($x) { return $x > 0; });
+                $filtered = array_filter($kolom[$j], function ($x) {
+                    return $x > 0;
+                });
                 $min = !empty($filtered) ? min($filtered) : 1;
                 $norm[$j] = [];
                 foreach ($kolom[$j] as $val) {
@@ -104,7 +121,9 @@ class RekomendasiController extends Controller
         // 9. Matriks berbobot
         $normBobot = [];
         foreach ($normTrans as $row) {
-            $normBobot[] = array_map(function($val, $b) { return $val * $b; }, $row, $bobotArr);
+            $normBobot[] = array_map(function ($val, $b) {
+                return $val * $b;
+            }, $row, $bobotArr);
         }
 
         // 10. Index benefit/cost
@@ -174,7 +193,7 @@ class RekomendasiController extends Controller
             'ranking'        => $ranking,
             'bobot'          => $bobotView,
             'matriks'        => $matriks,
-            'nilaiAlternatif'=> $nilaiAlternatifView,
+            'nilaiAlternatif' => $nilaiAlternatifView,
             'normalisasi'    => $normTrans,
             'berbobot'       => $normBobot,
             'Splus'          => $Splus,

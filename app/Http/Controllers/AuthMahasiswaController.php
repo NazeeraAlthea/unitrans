@@ -23,24 +23,25 @@ class AuthMahasiswaController extends Controller
         $mahasiswa = Mahasiswa::where('email', $request->email)->first();
 
         if ($mahasiswa) {
-            // Jika password sudah di-hash pakai Hash::check
             if (Hash::check($request->password, $mahasiswa->password)) {
                 // Simpan session manual
                 session(['mahasiswa_id' => $mahasiswa->id, 'mahasiswa_nama' => $mahasiswa->nama]);
                 return redirect()->intended('/'); // Ganti route dashboard jika perlu
+            } else {
+                // Password salah
+                return back()->withErrors(['email' => 'Email atau password salah'])->withInput();
             }
+        } else {
+            // Akun tidak ada
+            return back()->withErrors(['email' => 'Akun tidak ditemukan'])->withInput();
         }
-
-        session(['mahasiswa_id' => $mahasiswa->id, 'mahasiswa_nama' => $mahasiswa->nama]);
-        $request->session()->regenerate();
-        // Jika login gagal
-        return back()->withErrors(['email' => 'Email atau password salah'])->withInput();
     }
+
 
     public function logout(Request $request)
     {
         $request->session()->flush();
-        return redirect('/login');
+        return redirect('/');
     }
 
     public function showRegister()

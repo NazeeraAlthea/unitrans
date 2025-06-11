@@ -48,7 +48,7 @@ Route::get('/hasil-rekomendasi/{id_perhitungan}', [RekomendasiController::class,
 // login
 Route::get('/login-mahasiswa', [AuthMahasiswaController::class, 'showLogin'])->name('login-mahasiswa');
 Route::post('/login-mahasiswa', [AuthMahasiswaController::class, 'login']);
-Route::get('/logout-mahasiswa', [AuthMahasiswaController::class, 'logout'])->name('logout');
+Route::get('/logout-mahasiswa', [AuthMahasiswaController::class, 'logout'])->name('logout-mahasiswa');
 
 // register
 Route::get('/register-mahasiswa', [AuthMahasiswaController::class, 'showRegister'])->name('register-mahasiswa');
@@ -56,6 +56,7 @@ Route::post('/register-mahasiswa', [AuthMahasiswaController::class, 'register'])
 
 // profile
 Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+Route::delete('/riwayat/{id_perhitungan}/delete', [\App\Http\Controllers\ProfileController::class, 'delete'])->name('delete-history');
 
 
 require __DIR__.'/auth.php';

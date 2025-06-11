@@ -16,7 +16,7 @@
                 <h1 class="font-bold text-2xl mb-2">TransQuest</h1>
             </div>
             <h2 class="text-3xl font-bold mb-2">Create an account</h2>
-            <p class="mt-4 text-sm">Already have an account? <a href="{{ route('login-mahasiswa') }}" class="text-blue-500 hover:underline">Sign in</a></p>
+            <p class="text-gray-500 mb-4">Already have an account? <a href="{{ route('login-mahasiswa') }}" class="text-blue-500 hover:underline">Sign in</a></p>
             <form method="POST" action="{{ route('register-mahasiswa') }}" class="space-y-4 mt-4">
                 @csrf
                 <input type="text" name="nama" placeholder="Name" value="{{ old('nama') }}"
@@ -43,7 +43,7 @@
                 @endif
 
                 <button type="submit"
-                    class="w-full bg-black text-white rounded-full py-3 font-semibold text-lg shadow hover:bg-gray-900 transition">
+                    class="w-full bg-gray-800 text-white rounded-full py-3 font-semibold text-lg shadow hover:bg-gray-900 transition">
                     Create Account
                 </button>
             </form>

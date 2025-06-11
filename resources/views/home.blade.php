@@ -10,6 +10,8 @@
 </head>
 
 <body class="bg-white min-h-screen flex items-center">
+    @include('components.flash-message')
+
     <!-- Branding -->
     <div class="fixed top-10 px-10 text-xl font-bold text-gray-900 flex justify-between w-full">
         <div>Unitrans</div>
