@@ -10,6 +10,9 @@ class AuthMahasiswaController extends Controller
 {
     public function showLogin()
     {
+        if (session('mahasiswa_id')) {
+            return redirect()->route('home'); // Ganti dengan halaman tujuan setelah login
+        }
         return view('auth.login'); // Ganti path view jika perlu
     }
 
@@ -18,6 +21,7 @@ class AuthMahasiswaController extends Controller
         $request->validate([
             'email'    => 'required|email',
             'password' => 'required',
+            'g-recaptcha-response' => 'required|captcha',
         ]);
 
         $mahasiswa = Mahasiswa::where('email', $request->email)->first();
@@ -46,6 +50,9 @@ class AuthMahasiswaController extends Controller
 
     public function showRegister()
     {
+        if (session('mahasiswa_id')) {
+            return redirect()->route('home'); // Ganti dengan halaman tujuan setelah login
+        }
         return view('auth.register'); // Ganti path view jika file register beda
     }
 
@@ -54,10 +61,17 @@ class AuthMahasiswaController extends Controller
         $request->validate([
             'nama'     => 'required|string|max:100',
             'email'    => 'required|email|unique:mahasiswa,email',
-            'password' => 'required|string|min:6|confirmed',
+            'password' => [
+                'required',
+                'string',
+                'min:8',
+                'confirmed',
+                'regex:/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^a-zA-Z\d]).+$/'
+            ],
         ], [
             'password.confirmed' => 'Konfirmasi password tidak cocok.',
             'email.unique' => 'Email sudah terdaftar.',
+            'password.regex' => 'Password minimal 8 karakter, harus ada huruf besar, kecil, angka, dan simbol.'
         ]);
 
         $mahasiswa = new \App\Models\Mahasiswa;
