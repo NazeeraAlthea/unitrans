@@ -41,6 +41,6 @@ class GoogleController extends Controller
         // Auth::login($user);
 
         // Redirect ke halaman yang diinginkan
-        return redirect()->route('profile');
+        return redirect()->route('home');
     }
 }

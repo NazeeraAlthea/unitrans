@@ -10,6 +10,9 @@ class AuthMahasiswaController extends Controller
 {
     public function showLogin()
     {
+        if (session('mahasiswa_id')) {
+            return redirect()->route('home'); // Ganti dengan halaman tujuan setelah login
+        }
         return view('auth.login'); // Ganti path view jika perlu
     }
 
@@ -47,6 +50,9 @@ class AuthMahasiswaController extends Controller
 
     public function showRegister()
     {
+        if (session('mahasiswa_id')) {
+            return redirect()->route('home'); // Ganti dengan halaman tujuan setelah login
+        }
         return view('auth.register'); // Ganti path view jika file register beda
     }
 
