@@ -17,6 +17,14 @@ class CoprasController extends Controller
 {
     public function hitung(Request $request)
     {
+        $id_mahasiswa = session('mahasiswa_id');
+        if (!$id_mahasiswa) {
+        // Balas dengan pesan error 401 (unauthenticated)
+        return response()->json([
+            'error' => 'Unauthenticated'
+        ], 401);
+    }
+        
         $alternatif = $request->input('alternatif');
         $bobot = $request->input('bobot');
         Log::info('Data Alternatif:', $request->input('alternatif'));
@@ -25,6 +33,7 @@ class CoprasController extends Controller
         $hasil = $this->copras($alternatif, $bobot);
 
         $perhitungan = Perhitungan::create([
+            'id_mahasiswa'   => $id_mahasiswa,
             'hasil_json'     => json_encode($hasil),
             'tanggal_hitung' => now(),
         ]);
@@ -32,6 +41,7 @@ class CoprasController extends Controller
         $listKriteria = Kriteria::all()->map(function ($k) {
             return ['id_kriteria' => $k->id_kriteria, 'nama_kriteria' => $k->nama_kriteria];
         })->toArray();
+
 
         foreach ($alternatif as $alt) {
             foreach ($listKriteria as $kriteria) {
@@ -43,11 +53,10 @@ class CoprasController extends Controller
                     $value = $alt[$field];
                 }
                 NilaiAlternatif::create([
-                    'id_mahasiswa'    => null,
                     'id_transportasi' => $alt['id_transportasi'],
                     'id_kriteria'     => $kriteria['id_kriteria'],
                     'nilai'           => $value,
-                    'id_perhitungan'  => $perhitungan->id
+                    'id_perhitungan'  => $perhitungan->id_perhitungan
                 ]);
             }
         }
@@ -55,7 +64,7 @@ class CoprasController extends Controller
         foreach ($bobot as $idx => $bobotNilai) {
             $kriteria = $listKriteria[$idx];
             BobotKriteria::create([
-                'id_perhitungan' => $perhitungan->id,
+                'id_perhitungan' => $perhitungan->id_perhitungan,
                 'id_kriteria'    => $kriteria['id_kriteria'],
                 'bobot'          => $bobotNilai,
             ]);
@@ -67,7 +76,7 @@ class CoprasController extends Controller
         $transportasiList = Transportasi::all()->keyBy('id_transportasi');
 
         // Data bobot dengan nama kriteria
-        $bobot_kriteria = BobotKriteria::where('id_perhitungan', $perhitungan->id)
+        $bobot_kriteria = BobotKriteria::where('id_perhitungan', $perhitungan->id_perhitungan)
             ->get()
             ->map(function ($bk) use ($kriteriaList) {
                 return [
@@ -75,9 +84,10 @@ class CoprasController extends Controller
                     'bobot' => $bk->bobot,
                 ];
             });
+            
 
         // Data nilai alternatif dengan nama
-        $nilai_alternatif = NilaiAlternatif::where('id_perhitungan', $perhitungan->id)
+        $nilai_alternatif = NilaiAlternatif::where('id_perhitungan', $perhitungan->id_perhitungan)
             ->get()
             ->map(function ($na) use ($transportasiList, $kriteriaList) {
                 return [
@@ -90,14 +100,12 @@ class CoprasController extends Controller
 
         return response()->json([
             'hasil'            => $hasil,
-            'id_perhitungan'   => $perhitungan->id,
+            'id_perhitungan'   => $perhitungan->id_perhitungan,
             'bobot_kriteria'   => $bobot_kriteria,
             'nilai_alternatif' => $nilai_alternatif,
             'perhitungan'      => $perhitungan,
         ]);
     }
-
-
 
     private function copras($alternatif, $bobot)
     {

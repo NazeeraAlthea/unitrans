@@ -11,13 +11,11 @@ class NilaiAlternatif extends Model
     protected $primaryKey = 'id_nilai';
     public $timestamps = false;
     protected $fillable = [
-        'id_mahasiswa',
+        'id_perhitungan',
         'id_transportasi',
         'id_kriteria',
-        'nilai',
-        'id_perhitungan'
+        'nilai'
     ];
-
 
     public function transportasi()
     {
@@ -27,8 +25,9 @@ class NilaiAlternatif extends Model
     {
         return $this->belongsTo(Kriteria::class, 'id_kriteria', 'id_kriteria');
     }
-    public function mahasiswa()
+    public function perhitungan()
     {
-        return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa', 'id');
+        return $this->belongsTo(Perhitungan::class, 'id_perhitungan', 'id_perhitungan');
     }
 }
+

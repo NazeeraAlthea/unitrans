@@ -16,13 +16,13 @@ class BobotKriteria extends Model
         'bobot'
     ];
 
-
     public function kriteria()
     {
         return $this->belongsTo(Kriteria::class, 'id_kriteria', 'id_kriteria');
     }
-    public function mahasiswa()
+    public function perhitungan()
     {
-        return $this->belongsTo(Mahasiswa::class, 'id_mahasiswa', 'id');
+        return $this->belongsTo(Perhitungan::class, 'id_perhitungan', 'id_perhitungan');
     }
 }
+

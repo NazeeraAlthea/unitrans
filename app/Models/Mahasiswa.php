@@ -10,10 +10,12 @@ class Mahasiswa extends Model
     protected $table = 'mahasiswa';
     protected $primaryKey = 'id';
     public $timestamps = false;
+    protected $fillable = [
+        'email', 'password', 'nama'
+    ];
 
-    // Contoh relasi ke nilai/bobot
-    public function nilaiAlternatif()
+    public function perhitungan()
     {
-        return $this->hasMany(NilaiAlternatif::class, 'id_mahasiswa', 'id');
+        return $this->hasMany(Perhitungan::class, 'id_mahasiswa', 'id');
     }
 }

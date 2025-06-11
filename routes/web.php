@@ -12,22 +12,26 @@ use App\Http\Controllers\RekomendasiController;
 
 use App\Http\Controllers\CoprasController;
 
+use App\Http\Controllers\AuthMahasiswaController;
+use App\Http\Controllers\ProfileController;
+
 Route::get('/', function () {
     return view('home');
 })->name('home');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+// Route::view('dashboard', 'dashboard')
+//     ->middleware(['auth', 'verified'])
+//     ->name('dashboard');
 
-Route::middleware(['auth'])->group(function () {
-    Route::redirect('settings', 'settings/profile');
+// Route::middleware(['auth'])->group(function () {
+//     Route::redirect('settings', 'settings/profile');
 
-    Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
-    Volt::route('settings/password', 'settings.password')->name('settings.password');
-    Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
-});
+//     Volt::route('settings/profile', 'settings.profile')->name('settings.profile');
+//     Volt::route('settings/password', 'settings.password')->name('settings.password');
+//     Volt::route('settings/appearance', 'settings.appearance')->name('settings.appearance');
+// });
 
+// form copras
 Route::get('/form', [SPKController::class, 'showForm'])->name('spk.form');
 Route::get('/hasil', [SPKController::class, 'showHasil'])->name('spk.hasil');
 
@@ -37,10 +41,23 @@ Route::post('/bobot-kriteria', [BobotKriteriaController::class, 'store']);
 Route::post('/nilai-alternatif', [NilaiAlternatifController::class, 'store']);
 Route::post('/perhitungan', [PerhitunganController::class, 'store']);
 
+// hitung copras
 Route::post('/hitung-copras', [CoprasController::class, 'hitung']);
-// routes/web.php
 Route::get('/hasil-rekomendasi/{id_perhitungan}', [RekomendasiController::class, 'show'])->name('hasil-rekomendasi');
 
+// login
+Route::get('/login-mahasiswa', [AuthMahasiswaController::class, 'showLogin'])->name('login-mahasiswa');
+Route::post('/login-mahasiswa', [AuthMahasiswaController::class, 'login']);
+Route::get('/logout-mahasiswa', [AuthMahasiswaController::class, 'logout'])->name('logout-mahasiswa');
+
+// register
+Route::get('/register-mahasiswa', [AuthMahasiswaController::class, 'showRegister'])->name('register-mahasiswa');
+Route::post('/register-mahasiswa', [AuthMahasiswaController::class, 'register']);
+
+// profile
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
+Route::delete('/riwayat/{id_perhitungan}/delete', [\App\Http\Controllers\ProfileController::class, 'delete'])->name('delete-history');
+Route::post('/update-nama-mahasiswa', [\App\Http\Controllers\ProfileController::class, 'updateNama'])->name('update-nama-mahasiswa');
 
 
 require __DIR__.'/auth.php';

@@ -9,6 +9,21 @@ class RekomendasiController extends Controller
 {
     public function show($id_perhitungan)
     {
+
+        $userId = session('mahasiswa_id');
+
+        // Cek: Apakah perhitungan ini milik user yang login?
+        $perhitungan = DB::table('perhitungan')
+            ->where('id_perhitungan', $id_perhitungan)
+            ->where('id_mahasiswa', $userId)
+            ->first();
+
+        if (!$perhitungan) {
+            return redirect()->route('home')->with('error', 'Anda tidak punya akses ke hasil ini!');
+        }
+
+
+
         // 1. Ambil data transportasi dan kriteria
         $transportasi = DB::table('transportasi')->get()->keyBy('id_transportasi');
         $kriteria = DB::table('kriteria')->orderBy('id_kriteria')->get()->keyBy('id_kriteria');
@@ -67,7 +82,7 @@ class RekomendasiController extends Controller
             $kriteriaArr[] = $kr->nama_kriteria;
         }
 
-        // 7. Normalisasi
+        // 7. Normalisasi (AMAN min())
         $n = count($matriks);
         $kolom = [];
         for ($j = 0; $j < count($kriteria); $j++) {
@@ -83,7 +98,10 @@ class RekomendasiController extends Controller
                     $norm[$j][] = $sum == 0 ? 0 : $val / $sum;
                 }
             } else { // cost
-                $min = min(array_filter($kolom[$j], function ($x) { return $x > 0; })) ?: 1;
+                $filtered = array_filter($kolom[$j], function ($x) {
+                    return $x > 0;
+                });
+                $min = !empty($filtered) ? min($filtered) : 1;
                 $norm[$j] = [];
                 foreach ($kolom[$j] as $val) {
                     $norm[$j][] = ($val == 0 ? 0 : $min / $val);
@@ -103,7 +121,9 @@ class RekomendasiController extends Controller
         // 9. Matriks berbobot
         $normBobot = [];
         foreach ($normTrans as $row) {
-            $normBobot[] = array_map(function($val, $b) { return $val * $b; }, $row, $bobotArr);
+            $normBobot[] = array_map(function ($val, $b) {
+                return $val * $b;
+            }, $row, $bobotArr);
         }
 
         // 10. Index benefit/cost
@@ -114,7 +134,7 @@ class RekomendasiController extends Controller
             else $costIdx[] = $idx;
         }
 
-        // 11. S+ dan S-
+        // 11. S+ dan S- (AMAN min())
         $Splus = [];
         $Smin = [];
         foreach ($normBobot as $row) {
@@ -122,7 +142,8 @@ class RekomendasiController extends Controller
             $Smin[] = array_sum(array_intersect_key($row, array_flip($costIdx)));
         }
         $SminTotal = array_sum($Smin);
-        $SminMin = min(array_filter($Smin, fn($x)=>$x>0)) ?: 1;
+        $filteredSmin = array_filter($Smin, fn($x) => $x > 0);
+        $SminMin = !empty($filteredSmin) ? min($filteredSmin) : 1;
 
         // 12. Qi dan Ui
         $Qi = [];
@@ -172,7 +193,7 @@ class RekomendasiController extends Controller
             'ranking'        => $ranking,
             'bobot'          => $bobotView,
             'matriks'        => $matriks,
-            'nilaiAlternatif'=> $nilaiAlternatifView,
+            'nilaiAlternatif' => $nilaiAlternatifView,
             'normalisasi'    => $normTrans,
             'berbobot'       => $normBobot,
             'Splus'          => $Splus,

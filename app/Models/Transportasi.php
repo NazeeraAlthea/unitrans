@@ -9,9 +9,8 @@ class Transportasi extends Model
 {
     protected $table = 'transportasi';
     protected $primaryKey = 'id_transportasi';
-    public $timestamps = false; // kalau tidak pakai created_at, updated_at
+    public $timestamps = false;
 
-    // Jika ingin relasi ke nilai alternatif
     public function nilaiAlternatif()
     {
         return $this->hasMany(NilaiAlternatif::class, 'id_transportasi', 'id_transportasi');
