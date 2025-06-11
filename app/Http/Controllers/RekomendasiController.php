@@ -67,7 +67,7 @@ class RekomendasiController extends Controller
             $kriteriaArr[] = $kr->nama_kriteria;
         }
 
-        // 7. Normalisasi
+        // 7. Normalisasi (AMAN min())
         $n = count($matriks);
         $kolom = [];
         for ($j = 0; $j < count($kriteria); $j++) {
@@ -83,7 +83,8 @@ class RekomendasiController extends Controller
                     $norm[$j][] = $sum == 0 ? 0 : $val / $sum;
                 }
             } else { // cost
-                $min = min(array_filter($kolom[$j], function ($x) { return $x > 0; })) ?: 1;
+                $filtered = array_filter($kolom[$j], function ($x) { return $x > 0; });
+                $min = !empty($filtered) ? min($filtered) : 1;
                 $norm[$j] = [];
                 foreach ($kolom[$j] as $val) {
                     $norm[$j][] = ($val == 0 ? 0 : $min / $val);
@@ -114,7 +115,7 @@ class RekomendasiController extends Controller
             else $costIdx[] = $idx;
         }
 
-        // 11. S+ dan S-
+        // 11. S+ dan S- (AMAN min())
         $Splus = [];
         $Smin = [];
         foreach ($normBobot as $row) {
@@ -122,7 +123,8 @@ class RekomendasiController extends Controller
             $Smin[] = array_sum(array_intersect_key($row, array_flip($costIdx)));
         }
         $SminTotal = array_sum($Smin);
-        $SminMin = min(array_filter($Smin, fn($x)=>$x>0)) ?: 1;
+        $filteredSmin = array_filter($Smin, fn($x) => $x > 0);
+        $SminMin = !empty($filteredSmin) ? min($filteredSmin) : 1;
 
         // 12. Qi dan Ui
         $Qi = [];

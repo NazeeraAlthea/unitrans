@@ -15,4 +15,9 @@ class Kriteria extends Model
     {
         return $this->hasMany(NilaiAlternatif::class, 'id_kriteria', 'id_kriteria');
     }
+
+    public function bobotKriteria()
+    {
+        return $this->hasMany(BobotKriteria::class, 'id_kriteria', 'id_kriteria');
+    }
 }

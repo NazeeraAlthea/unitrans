@@ -14,9 +14,9 @@
     <div class="fixed top-10 px-10 text-xl font-bold text-gray-900 flex justify-between w-full">
         <div>Unitrans</div>
         @if (session('mahasiswa_id'))
-            <span class="px-6 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold shadow border border-blue-100">
+            <a href="{{ route('profile') }}" class="px-6 py-2 rounded-lg bg-blue-50 text-blue-700 font-semibold shadow border border-blue-100">
                 Halo, {{ session('mahasiswa_nama') }}!
-            </span>
+            </a>
         @else
             <a href="{{ route('login-mahasiswa') }}"
                 class="px-6 py-2 rounded-lg border-2 border-blue-600 text-blue-600 font-semibold hover:bg-blue-600 hover:text-white transition">

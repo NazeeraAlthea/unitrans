@@ -13,6 +13,7 @@ use App\Http\Controllers\RekomendasiController;
 use App\Http\Controllers\CoprasController;
 
 use App\Http\Controllers\AuthMahasiswaController;
+use App\Http\Controllers\ProfileController;
 
 Route::get('/', function () {
     return view('home');
@@ -52,6 +53,9 @@ Route::get('/logout-mahasiswa', [AuthMahasiswaController::class, 'logout'])->nam
 // register
 Route::get('/register-mahasiswa', [AuthMahasiswaController::class, 'showRegister'])->name('register-mahasiswa');
 Route::post('/register-mahasiswa', [AuthMahasiswaController::class, 'register']);
+
+// profile
+Route::get('/profile', [ProfileController::class, 'show'])->name('profile');
 
 
 require __DIR__.'/auth.php';

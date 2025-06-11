@@ -12,7 +12,6 @@ class BobotKriteriaController extends Controller
     {
         // validasi dsb bisa ditambah
         $bobot = new BobotKriteria();
-        $bobot->id_mahasiswa = $request->id_mahasiswa;
         $bobot->id_kriteria = $request->id_kriteria;
         $bobot->bobot = $request->bobot;
         $bobot->save();

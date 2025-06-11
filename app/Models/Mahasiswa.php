@@ -14,9 +14,8 @@ class Mahasiswa extends Model
         'email', 'password', 'nama'
     ];
 
-    // Contoh relasi ke nilai/bobot
-    public function nilaiAlternatif()
+    public function perhitungan()
     {
-        return $this->hasMany(NilaiAlternatif::class, 'id_mahasiswa', 'id');
+        return $this->hasMany(Perhitungan::class, 'id_mahasiswa', 'id');
     }
 }
