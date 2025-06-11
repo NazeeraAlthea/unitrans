@@ -9,12 +9,13 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-white min-h-screen flex items-center justify-center">
+    <div class="fixed top-10 px-10 text-xl font-bold text-gray-900 flex justify-between w-full">
+        <a href="{{ route('home') }}">Unitrans</a>
+    </div>
+
     <div class="w-full max-w-5xl flex flex-col md:flex-row shadow-lg rounded-2xl overflow-hidden bg-white">
         <!-- LEFT SIDE: Register Form -->
         <div class="flex-1 flex flex-col justify-center p-12">
-            <div class="mb-8">
-                <h1 class="font-bold text-2xl mb-2">TransQuest</h1>
-            </div>
             <h2 class="text-3xl font-bold mb-2">Create an account</h2>
             <p class="text-gray-500 mb-4">Already have an account? <a href="{{ route('login-mahasiswa') }}" class="text-blue-500 hover:underline">Sign in</a></p>
             <form method="POST" action="{{ route('register-mahasiswa') }}" class="space-y-4 mt-4">
