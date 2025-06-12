@@ -78,14 +78,16 @@
     <!-- SECTION: Alternatif Transportasi (Vertikal/Satu Kolom) -->
     <section class="w-full max-w-4xl mx-auto mt-8">
         <div class="bg-white border-2 border-gray-200 rounded-3xl px-8 py-8 shadow">
-            <div class="text-2xl font-bold mb-7 text-center">Alternatif Transportasi</div>
+            <div class="text-3xl font-bold mb-6 text-left">Alternatif Transportasi</div>
+            <div class="text-md text-gray-700 mb-7 text-left">Pilih kendaraan yang ingin ada gunakan dengan klik minimal 1 dari kendaraan dibawah</div>
             <div id="transport-list" class="space-y-7"></div>
         </div>
     </section>
 
     {{-- bobot --}}
     <section class="w-full mt-16 bg-white rounded-2xl border-2 border-gray-200 shadow px-8 py-14 max-w-4xl mx-auto">
-        <h2 class="text-3xl md:text-4xl font-bold mb-14 tracking-wider">Faktor Penilaian</h2>
+        <h2 class="text-3xl md:text-4xl font-bold mb-6 tracking-wider">Faktor Penilaian</h2>
+        <div class="text-md text-gray-700 mb-14 tracking-wider">Tentukan bobot dari setiap kriteria dibawah dengan rentang 1-100</div>
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-12 gap-y-20">
 
             <!-- BIAYA -->
